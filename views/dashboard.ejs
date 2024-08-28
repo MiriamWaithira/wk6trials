@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="/expenses">View Expenses</a></li>
+                <li><a href="/add-expense">Add Expense</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Your Expense Summary</h2>
+        <p>Display a summary of expenses here...</p>
+    </main>
+
+    <footer class="dashboard-footer">
+        <p>&copy; 2024 Expense Tracker</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const token = localStorage.getItem('token');
+            
+            if (token) {
+                try {
+                    const response = await fetch('/dashboard', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`, // Include token in header
+                            'Content-Type': 'application/json'  // Ensure proper content type
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.text(); // Use .text() to get the HTML content
+                        console.log('Fetched data:', data);
+                    } else {
+                        console.error('Failed to fetch data:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            } else {
+                console.error('No token found');
+            }
+        });
+    </script>   
+</body>
+</html>

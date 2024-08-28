@@ -1,0 +1,10 @@
+.env
+node_modules/
+
+public/images/
+public/css/
+
+*.log
+
+config.js
+
